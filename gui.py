@@ -342,6 +342,13 @@ class RealSenseCamera(QThread):
                 writer.writerow(['Frame', 'Timestamp'])
             
             if self.use_tracking:
+                # save reference into recording folder
+                cv2.imwrite(
+                    os.path.join(self.recording_path, 'reference.png'),
+                    self.reference
+                    )
+
+                # create tracking csv file
                 self.tracking_csv_path = os.path.join(self.recording_path, 'tracking.csv')
                 with open(self.tracking_csv_path, 'a', newline='') as csv_file:
                     writer = csv.writer(csv_file)
