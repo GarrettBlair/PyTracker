@@ -265,9 +265,12 @@ class RealSenseCamera(QThread):
 
                     # save timestamp
                     timestamp = ir_frame.get_timestamp()
+                    hw_counter = -1
+                    if ir_frame.supports_frame_metadata(rs.frame_metadata.value.frame_counter): # hardware frame counter
+                        hw_counter = ir_frame.get_frame_metadata(rs.frame_metadata_value.frame_counter)
                     with open(self.timestamps_csv_path, 'a', newline='') as csv_file:
                         writer = csv.writer(csv_file)
-                        writer.writerow([self.total_frames-1, timestamp]) # frame was already bumped in write_frame()
+                        writer.writerow([self.total_frames-1, timestamp, hw_counter]) # frame was already bumped in write_frame()
 
                 else:
                     self.stats_data.emit(0, "00:00:00")
@@ -339,7 +342,7 @@ class RealSenseCamera(QThread):
             self.timestamps_csv_path = os.path.join(self.recording_path, 'timestamps.csv')
             with open(self.timestamps_csv_path, 'a', newline='') as csv_file:
                 writer = csv.writer(csv_file)
-                writer.writerow(['Frame', 'Timestamp'])
+                writer.writerow(['Frame', 'Timestamp', 'HW_Frame'])
             
             if self.use_tracking:
                 # save reference into recording folder
