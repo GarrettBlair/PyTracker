@@ -266,7 +266,7 @@ class RealSenseCamera(QThread):
                     # save timestamp
                     timestamp = ir_frame.get_timestamp()
                     hw_counter = -1
-                    if ir_frame.supports_frame_metadata(rs.frame_metadata.value.frame_counter): # hardware frame counter
+                    if ir_frame.supports_frame_metadata(rs.frame_metadata_value.frame_counter): # hardware frame counter
                         hw_counter = ir_frame.get_frame_metadata(rs.frame_metadata_value.frame_counter)
                     with open(self.timestamps_csv_path, 'a', newline='') as csv_file:
                         writer = csv.writer(csv_file)
