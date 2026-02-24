@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python>=3.13
+  - python=3.13 # had to change this from >=3.13 to =3.13 for this to work
   - jupyter
   - numpy
   - pandas
@@ -13,3 +13,5 @@ dependencies:
   - libusb
   - pip:
     - pyrealsense2>=2.56.5
+
+  
