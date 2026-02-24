@@ -9,7 +9,7 @@ _LOG_LISTENER = None
 _CONFIGURED = False
 
 
-def setup_app_logging(log_dir="./pytracker_logs", level=logging.INFO):
+def setup_app_logging(log_dir="./pytracker_logs", level=logging.INFO, console_output=False):
     """
     Configure process-wide logging with queue-based handlers.
 
@@ -25,9 +25,11 @@ def setup_app_logging(log_dir="./pytracker_logs", level=logging.INFO):
 
     if not os.path.exists(log_dir):
         os.makedirs(log_dir, exist_ok=False)
-        print(f"   ~~~   Created log directory: {os.path.abspath(log_dir)}")
+        if console_output:
+            print(f"   ~~~   Created log directory: {os.path.abspath(log_dir)}")
     else:
-        print(f"   ~~~   Log directory already exists, appending: {os.path.abspath(log_dir)}")
+        if console_output:
+            print(f"   ~~~   Log directory already exists, appending: {os.path.abspath(log_dir)}")
         # raise FileExistsError(f"Using existing log directory: {os.path.abspath(log_dir)}")
     
     log_queue = queue.Queue(-1)
@@ -42,10 +44,6 @@ def setup_app_logging(log_dir="./pytracker_logs", level=logging.INFO):
         "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
     )
 
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(level)
-    console_handler.setFormatter(formatter)
-
     file_handler = RotatingFileHandler(
         os.path.join(log_dir, "app.log"),
         maxBytes=5 * 1024 * 1024,
@@ -55,7 +53,14 @@ def setup_app_logging(log_dir="./pytracker_logs", level=logging.INFO):
     file_handler.setLevel(level)
     file_handler.setFormatter(formatter)
 
-    listener = QueueListener(log_queue, console_handler, file_handler, respect_handler_level=True)
+    handlers = [file_handler]
+    if console_output:
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(level)
+        console_handler.setFormatter(formatter)
+        handlers.append(console_handler)
+
+    listener = QueueListener(log_queue, *handlers, respect_handler_level=True)
     listener.start()
 
     _LOG_QUEUE = log_queue

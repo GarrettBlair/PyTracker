@@ -6,7 +6,7 @@ from runtime_camera import select_camera
 from logging_config import setup_app_logging, shutdown_app_logging
 
 recording_params = {
-    'serial_number'   : '213622074070', # leave as None to load the first available one
+    'serial_number'   : None, # leave as None to load the first available one
     'folder_path'     : './data/',
     'recording_length': 10, # in seconds, leave 0 if you want recording indefinitely
     'frames_per_file' : 1000,
@@ -34,7 +34,7 @@ recording_params = {
 ## ======= ##
 
 if __name__ == "__main__":
-    setup_app_logging()
+    setup_app_logging(console_output=False)
     logger = logging.getLogger("pytracker.launch")
 
     try:

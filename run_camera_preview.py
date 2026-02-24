@@ -12,7 +12,7 @@ preview_params = {
 
 
 if __name__ == "__main__":
-    setup_app_logging()
+    setup_app_logging(console_output=False)
     logger = logging.getLogger("pytracker.launch")
 
     try:
@@ -22,7 +22,7 @@ if __name__ == "__main__":
             width=preview_params.get('width', 640),
             height=preview_params.get('height', 480),
             fps=preview_params.get('fps', 30),
-            max_usb_index=preview_params.get('max_usb_index', 10),
+            max_usb_index=preview_params.get('max_usb_index', 4),
         )
         logger.info("Camera preview ended")
     except Exception:

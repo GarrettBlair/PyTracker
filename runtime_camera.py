@@ -11,6 +11,23 @@ except ImportError:
 logger = logging.getLogger("pytracker.camera_select")
 
 
+def _is_highgui_not_available_error(error):
+    message = str(error).lower()
+    return (
+        "the function is not implemented" in message
+        and ("cvnamedwindow" in message or "highgui" in message or "imshow" in message)
+    )
+
+
+def _warn_preview_unavailable(error):
+    message = (
+        "OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). "
+        "Skipping preview and continuing."
+    )
+    logger.warning("%s Details: %s", message, error)
+    print(f"WARNING: {message}")
+
+
 def list_realsense_cameras():
     """
     Return metadata for all connected RealSense cameras.
@@ -106,10 +123,21 @@ def preview_realsense_camera(serial_number, width=640, height=480, fps=30, windo
     if window_name is None:
         window_name = f"RealSense Preview - {serial_number}"
 
-    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-
+    pipeline_started = False
+    window_created = False
     try:
         pipeline.start(config)
+        pipeline_started = True
+
+        try:
+            cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+            window_created = True
+        except cv2.error as error:
+            if _is_highgui_not_available_error(error):
+                _warn_preview_unavailable(error)
+                return
+            raise
+
         while True:
             frames = pipeline.wait_for_frames()
             ir_frame = frames.get_infrared_frame()
@@ -117,13 +145,21 @@ def preview_realsense_camera(serial_number, width=640, height=480, fps=30, windo
                 continue
 
             frame_np = np.asanyarray(ir_frame.get_data())
-            cv2.imshow(window_name, frame_np)
-            key = cv2.waitKey(1) & 0xFF
+            try:
+                cv2.imshow(window_name, frame_np)
+                key = cv2.waitKey(1) & 0xFF
+            except cv2.error as error:
+                if _is_highgui_not_available_error(error):
+                    _warn_preview_unavailable(error)
+                    return
+                raise
             if key in (27, ord("q")):
                 break
     finally:
-        pipeline.stop()
-        cv2.destroyWindow(window_name)
+        if pipeline_started:
+            pipeline.stop()
+        if window_created:
+            cv2.destroyWindow(window_name)
 
 
 def preview_usb_camera(camera_index, width=640, height=480, fps=30, window_name=None):
@@ -145,9 +181,18 @@ def preview_usb_camera(camera_index, width=640, height=480, fps=30, window_name=
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
     cap.set(cv2.CAP_PROP_FPS, fps)
 
-    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    window_created = False
 
     try:
+        try:
+            cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+            window_created = True
+        except cv2.error as error:
+            if _is_highgui_not_available_error(error):
+                _warn_preview_unavailable(error)
+                return
+            raise
+
         while True:
             ok, frame = cap.read()
             if not ok:
@@ -158,13 +203,20 @@ def preview_usb_camera(camera_index, width=640, height=480, fps=30, window_name=
             else:
                 frame_show = frame
 
-            cv2.imshow(window_name, frame_show)
-            key = cv2.waitKey(1) & 0xFF
+            try:
+                cv2.imshow(window_name, frame_show)
+                key = cv2.waitKey(1) & 0xFF
+            except cv2.error as error:
+                if _is_highgui_not_available_error(error):
+                    _warn_preview_unavailable(error)
+                    return
+                raise
             if key in (27, ord("q")):
                 break
     finally:
         cap.release()
-        cv2.destroyWindow(window_name)
+        if window_created:
+            cv2.destroyWindow(window_name)
 
 
 def preview_camera(camera_info, width=640, height=480, fps=30):
@@ -189,7 +241,7 @@ def preview_camera(camera_info, width=640, height=480, fps=30):
         raise RuntimeError(f"Unsupported camera type: {camera_info['camera_type']}")
 
 
-def select_camera(preselected_id=None, preview=True, width=640, height=480, fps=30, max_usb_index=10):
+def select_camera(preselected_id=None, preview=True, width=640, height=480, fps=30, max_usb_index=4):
     """
     Select a connected camera at runtime and optionally preview it.
 
