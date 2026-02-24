@@ -1,0 +1,48 @@
+2026-02-24 17:36:55,374 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 17:36:55,596 | ERROR | pytracker.launch | Fatal error while running camera preview
+Traceback (most recent call last):
+  File "C:\Users\gjb326\PROJECTS\PyTracker\run_camera_preview.py", line 19, in <module>
+    select_camera(
+    ~~~~~~~~~~~~~^
+        preselected_id=preview_params.get('camera_id'),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        max_usb_index=preview_params.get('max_usb_index', 10),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gjb326\PROJECTS\PyTracker\runtime_camera.py", line 203, in select_camera
+    raise RuntimeError("No cameras were detected (RealSense or USB).")
+RuntimeError: No cameras were detected (RealSense or USB).
+2026-02-24 17:47:20,726 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 17:47:20,892 | ERROR | pytracker.launch | Fatal error while running camera preview
+Traceback (most recent call last):
+  File "C:\Users\gjb326\PROJECTS\PyTracker\run_camera_preview.py", line 19, in <module>
+    select_camera(
+    ~~~~~~~~~~~~~^
+        preselected_id=preview_params.get('camera_id'),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        max_usb_index=preview_params.get('max_usb_index', 10),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gjb326\PROJECTS\PyTracker\runtime_camera.py", line 203, in select_camera
+    raise RuntimeError("No cameras were detected (RealSense or USB).")
+RuntimeError: No cameras were detected (RealSense or USB).
+2026-02-24 17:47:22,420 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 17:47:22,633 | ERROR | pytracker.launch | Fatal error while running camera preview
+Traceback (most recent call last):
+  File "C:\Users\gjb326\PROJECTS\PyTracker\run_camera_preview.py", line 19, in <module>
+    select_camera(
+    ~~~~~~~~~~~~~^
+        preselected_id=preview_params.get('camera_id'),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        max_usb_index=preview_params.get('max_usb_index', 10),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gjb326\PROJECTS\PyTracker\runtime_camera.py", line 203, in select_camera
+    raise RuntimeError("No cameras were detected (RealSense or USB).")
+RuntimeError: No cameras were detected (RealSense or USB).
