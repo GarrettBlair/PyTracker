@@ -1,4 +1,4 @@
-name: realsense
+name: pytracker
 channels:
   - conda-forge
   - defaults
@@ -13,3 +13,4 @@ dependencies:
   - librealsense
   - pyrealsense2=2.56.5
   - libusb
+  - mcculw
