@@ -1,6 +1,7 @@
 import os
 import json
 import csv
+import logging
 import cv2
 import time
 from datetime import datetime, timedelta
@@ -55,6 +56,7 @@ class RealSenseCamera(QThread):
             window_weight=0.90,
             loc_thresh=99.5,
             ksize=5,
+            **_unused_kwargs,
             ):
         '''
         Initialize RealSense camera, define recording
@@ -134,6 +136,17 @@ class RealSenseCamera(QThread):
         self.prior_position = None
         self.timestamps_csv_path = None
         self.tracking_csv_path = None
+        self.session_log_handler = None
+
+        self.logger = logging.getLogger("pytracker.camera")
+        self.logger.info(
+            "Initialized RealSenseCamera serial=%s tracking=%s fps=%s resolution=%sx%s",
+            self.serial_number,
+            self.use_tracking,
+            self.fps,
+            self.width,
+            self.height,
+        )
         
         # set up realsense stream
         self.pipeline = rs.pipeline()
@@ -148,6 +161,31 @@ class RealSenseCamera(QThread):
             rs.format.y8,
             fps
             )
+
+    def _attach_recording_log_handler(self):
+        if self.recording_path is None:
+            return
+
+        if self.session_log_handler is not None:
+            self.logger.removeHandler(self.session_log_handler)
+            self.session_log_handler.close()
+            self.session_log_handler = None
+
+        log_path = os.path.join(self.recording_path, "recording.log")
+        handler = logging.FileHandler(log_path, encoding="utf-8")
+        handler.setLevel(logging.INFO)
+        handler.setFormatter(
+            logging.Formatter("%(asctime)s | %(levelname)s | %(name)s | %(message)s")
+        )
+        self.logger.addHandler(handler)
+        self.session_log_handler = handler
+        self.logger.info("Recording session log initialized at %s", os.path.abspath(log_path))
+
+    def _detach_recording_log_handler(self):
+        if self.session_log_handler is not None:
+            self.logger.removeHandler(self.session_log_handler)
+            self.session_log_handler.close()
+            self.session_log_handler = None
 
     def compute_reference(self):
         '''
@@ -199,6 +237,10 @@ class RealSenseCamera(QThread):
             krn_violation = diff_morph.sum()==0
             diff = diff if krn_violation else diff_morph
             if krn_violation:
+                self.logger.warning(
+                    "ksize too large for morphology at frame=%s; using unfiltered diff",
+                    self.total_frames,
+                )
                 print(f"WARNING: ksize too large. Not applying for frame {self.total_frames}")
         
         com = ndimage.center_of_mass(diff) # returns as (y,x)
@@ -211,22 +253,26 @@ class RealSenseCamera(QThread):
         externally), capture, display, and save frames. Display
         time elapsed as well.
         '''
-        profile = self.pipeline.start(self.config)
-        device = profile.get_device()
-        # note: depth and infrared are on the same sensor
-        self.depth_sensor = device.first_depth_sensor()
-
-        # manual exposure
-        self.depth_sensor.set_option(rs.option.enable_auto_exposure, 0)
-        self.depth_sensor.set_option(rs.option.exposure, self.exposure)
-        self.depth_sensor.set_option(rs.option.gain, self.gain)
-        self.depth_sensor.set_option(rs.option.laser_power, self.laser_power)
-
+        pipeline_started = False
         try:
+            profile = self.pipeline.start(self.config)
+            pipeline_started = True
+            device = profile.get_device()
+            # note: depth and infrared are on the same sensor
+            self.depth_sensor = device.first_depth_sensor()
+
+            # manual exposure
+            self.depth_sensor.set_option(rs.option.enable_auto_exposure, 0)
+            self.depth_sensor.set_option(rs.option.exposure, self.exposure)
+            self.depth_sensor.set_option(rs.option.gain, self.gain)
+            self.depth_sensor.set_option(rs.option.laser_power, self.laser_power)
+            self.logger.info("RealSense pipeline started successfully")
+
             while self.running:
                 try:
                     frames = self.pipeline.wait_for_frames()
                 except RuntimeError:
+                    self.logger.warning("Frame timeout while waiting for frames; retrying")
                     print("Frame timeout. Retrying...")
                     continue
                 
@@ -241,6 +287,7 @@ class RealSenseCamera(QThread):
                         self.reference = np.median(np.array(self.ref_stack), axis=0).astype(np.uint8)
                         self.computing_reference = False
                         self.reference_ready.emit(True)
+                        self.logger.info("Reference computed successfully with %s frames", self.ref_num_frames)
                         print("Reference computed successfully.")
 
                 self.image_data.emit(frame_np) # display frame
@@ -275,9 +322,14 @@ class RealSenseCamera(QThread):
                 else:
                     self.stats_data.emit(0, "00:00:00")
 
+        except Exception:
+            self.logger.exception("Unhandled exception in camera run loop")
+            raise
         finally:
             self.stop_recording()
-            self.pipeline.stop()
+            if pipeline_started:
+                self.pipeline.stop()
+                self.logger.info("RealSense pipeline stopped")
 
     def write_frame(self, frame):
         '''
@@ -310,6 +362,7 @@ class RealSenseCamera(QThread):
             (self.width, self.height),
             isColor=False
             )
+        self.logger.info("Recording to file: %s", os.path.abspath(filename))
         print(f"Recording to: {filename}")
 
     def start_recording(self):
@@ -329,6 +382,8 @@ class RealSenseCamera(QThread):
             self.recording_path = os.path.join(self.folder_path, current_time)
             if not os.path.exists(self.recording_path):
                 os.makedirs(self.recording_path)
+
+            self._attach_recording_log_handler()
             
             # save params file of the recording's attributes
             params_keys = ['recording_start_time', 'recording_length', 'serial_number', 'folder_path', 'recording_path',
@@ -336,6 +391,7 @@ class RealSenseCamera(QThread):
             params_info = {key: getattr(self, key) for key in params_keys}
             with open(os.path.join(self.recording_path, 'params.json'), 'w') as f:
                 json.dump(params_info, f, indent=4)
+            self.logger.info("Recording started with params: %s", json.dumps(params_info, default=str))
             del params_info
 
             # create timestamps csv file
@@ -373,12 +429,13 @@ class RealSenseCamera(QThread):
 
         # turn off TTL
         if self.enable_ttl:
-            if self.depth_sensor.supports(rs.option.output_trigger_enabled):
+            if hasattr(self, 'depth_sensor') and self.depth_sensor.supports(rs.option.output_trigger_enabled):
                 self.depth_sensor.set_option(rs.option.output_trigger_enabled, 0)
 
         if self.writer:
             self.writer.release()
             self.writer = None
+            self.logger.info('Recording stopped.')
             print('Recording stopped.')
         
         # re-scale timestamps
@@ -390,6 +447,7 @@ class RealSenseCamera(QThread):
                         timestamps_df['TimestampFromStart'] = timestamps_df['Timestamp'] - timestamps_df['Timestamp'][0]
                         timestamps_df.to_csv(self.timestamps_csv_path, index=False)
                 except Exception as e:
+                    self.logger.error("Error processing timestamps: %s", e)
                     print(f"Error processing timestamps: {e}")
 
         # compute distance traveled
@@ -404,7 +462,19 @@ class RealSenseCamera(QThread):
                         tracking_df['Distance_px'] = np.append(0, distances)
                         tracking_df.to_csv(self.tracking_csv_path, index=False)
                 except Exception as e:
+                    self.logger.error("Error processing tracking data: %s", e)
                     print(f"Error processing tracking data: {e}")
+
+        if self.recording_path is not None:
+            elapsed = 0 if self.recording_start_time is None else (time.time() - self.recording_start_time)
+            self.logger.info(
+                "Recording session ended path=%s total_frames=%s elapsed_s=%.2f",
+                os.path.abspath(self.recording_path),
+                self.total_frames,
+                elapsed,
+            )
+
+        self._detach_recording_log_handler()
 
     def stop_camera(self):
         '''
@@ -458,14 +528,21 @@ class RealSenseGUI(QMainWindow):
         self.stats_layout = QHBoxLayout()
         self.time_label = QLabel("Duration: 00:00:00")
         self.count_label = QLabel("Frames: 0")
+        self.fps_label = QLabel("FPS: --.-")
         stat_font = QFont("Arial", 14, QFont.Bold)
         self.time_label.setFont(stat_font)
         self.count_label.setFont(stat_font)
+        self.fps_label.setFont(stat_font)
         self.time_label.setStyleSheet("color: #2ecc71;")
         self.stats_layout.addWidget(self.time_label)
         self.stats_layout.addStretch()
+        self.stats_layout.addWidget(self.fps_label)
         self.stats_layout.addWidget(self.count_label)
         self.layout.addLayout(self.stats_layout)
+
+        self.fps_measure_start = time.perf_counter()
+        self.fps_measure_count = 0
+        self.smoothed_fps = None
 
         self.video_container = QHBoxLayout()
 
@@ -546,6 +623,19 @@ class RealSenseGUI(QMainWindow):
         bytes_per_line = width
         q_img = QImage(frame.data, width, height, bytes_per_line, QImage.Format_Grayscale8)
         self.video_label.setPixmap(QPixmap.fromImage(q_img))
+
+        self.fps_measure_count += 1
+        elapsed = time.perf_counter() - self.fps_measure_start
+        if elapsed >= 0.5:
+            instant_fps = self.fps_measure_count / elapsed
+            if self.smoothed_fps is None:
+                self.smoothed_fps = instant_fps
+            else:
+                self.smoothed_fps = (0.2 * self.smoothed_fps) + (0.8 * instant_fps)
+
+            self.fps_label.setText(f"FPS: {self.smoothed_fps:.1f}")
+            self.fps_measure_start = time.perf_counter()
+            self.fps_measure_count = 0
     
     @Slot(int, str)
     def update_stats(self, count, elapsed_time):

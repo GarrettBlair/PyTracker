@@ -1,0 +1,745 @@
+2026-02-24 18:28:12,943 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:28:15,452 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:28:15,453 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:28:15,453 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:28:17,426 | INFO | pytracker.camera_select | Selected camera: [realsense] Intel RealSense D435 (213322072619)
+2026-02-24 18:28:17,426 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:28:17,475 | ERROR | pytracker.launch | Fatal error while running camera preview
+Traceback (most recent call last):
+  File "C:\Users\gjb326\PROJECTS\PyTracker\run_camera_preview.py", line 19, in <module>
+    select_camera(
+    ~~~~~~~~~~~~~^
+        preselected_id=preview_params.get('camera_id'),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        max_usb_index=preview_params.get('max_usb_index', 4),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\gjb326\PROJECTS\PyTracker\runtime_camera.py", line 261, in select_camera
+    preview_camera(selected, width=width, height=height, fps=fps)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gjb326\PROJECTS\PyTracker\runtime_camera.py", line 175, in preview_camera
+    preview_realsense_camera(
+    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        serial_number=camera_info["serial_number"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fps=fps,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\gjb326\PROJECTS\PyTracker\runtime_camera.py", line 109, in preview_realsense_camera
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cv2.error: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:30:36,688 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:30:39,532 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:30:39,532 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:30:39,532 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:30:41,909 | INFO | pytracker.camera_select | Selected camera: [realsense] Intel RealSense D435 (213322072619)
+2026-02-24 18:30:41,909 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:30:42,264 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:30:42,928 | INFO | pytracker.launch | Camera preview ended
+2026-02-24 18:32:03,570 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:32:06,426 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:32:06,426 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:32:06,426 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:32:13,185 | INFO | pytracker.camera_select | Selected camera: [realsense] Intel RealSense D435 (213322072619)
+2026-02-24 18:32:13,185 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:32:13,569 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:32:14,272 | INFO | pytracker.launch | Camera preview ended
+2026-02-24 18:32:39,937 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:32:42,520 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:32:42,521 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:32:42,521 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:32:44,199 | INFO | pytracker.camera_select | Selected camera: [realsense] Intel RealSense D435 (213322072619)
+2026-02-24 18:32:44,199 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:32:44,545 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:32:45,221 | INFO | pytracker.launch | Launching recording GUI with serial=213322072619
+2026-02-24 18:32:45,906 | INFO | pytracker.camera | Initialized RealSenseCamera serial=213322072619 tracking=False fps=30 resolution=640x480
+2026-02-24 18:32:46,340 | INFO | pytracker.camera | RealSense pipeline started successfully
+2026-02-24 18:33:31,755 | INFO | pytracker.camera | RealSense pipeline stopped
+2026-02-24 18:33:31,771 | INFO | pytracker.launch | Recording GUI exited with code=0
+2026-02-24 18:37:09,617 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:37:12,480 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:37:12,480 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:37:12,480 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:37:34,714 | INFO | pytracker.camera_select | Selected camera: [realsense] Intel RealSense D435 (213322072619)
+2026-02-24 18:37:34,714 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:37:35,075 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:37:35,741 | INFO | pytracker.launch | Launching recording GUI with serial=213322072619
+2026-02-24 18:37:35,778 | INFO | pytracker.camera | Initialized RealSenseCamera serial=213322072619 tracking=False fps=30 resolution=640x480
+2026-02-24 18:37:36,207 | INFO | pytracker.camera | RealSense pipeline started successfully
+2026-02-24 18:37:49,345 | INFO | pytracker.camera | RealSense pipeline stopped
+2026-02-24 18:37:49,359 | INFO | pytracker.launch | Recording GUI exited with code=0
+2026-02-24 18:39:57,814 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:40:00,611 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:40:00,611 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:40:00,611 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:40:01,599 | INFO | pytracker.camera_select | Selected camera: [usb] USB Camera 1 (1)
+2026-02-24 18:40:01,599 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:40:03,546 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:40:04,224 | WARNING | pytracker.launch | Selected camera is USB. Recording GUI currently supports RealSense only, so only preview was run.
+2026-02-24 18:41:02,824 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:41:05,617 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:41:05,617 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:41:05,617 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:41:06,621 | INFO | pytracker.camera_select | Selected camera: [realsense] Intel RealSense D435 (213322072619)
+2026-02-24 18:41:06,621 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:41:06,991 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:41:07,711 | INFO | pytracker.launch | Launching recording GUI with serial=213322072619
+2026-02-24 18:41:07,748 | INFO | pytracker.camera | Initialized RealSenseCamera serial=213322072619 tracking=False fps=30 resolution=640x480
+2026-02-24 18:41:08,160 | INFO | pytracker.camera | RealSense pipeline started successfully
+2026-02-24 18:41:12,774 | INFO | pytracker.camera | Recording session log initialized at C:\Users\gjb326\PROJECTS\PyTracker\data\2026_02_24-18_41_12\recording.log
+2026-02-24 18:41:12,775 | INFO | pytracker.camera | Recording started with params: {"recording_start_time": 1771976472.7732482, "recording_length": 10, "serial_number": "213322072619", "folder_path": "./data/", "recording_path": "./data/2026_02_24-18_41_12", "frames_per_file": 1000, "width": 640, "height": 480, "fps": 30, "codec": "XVID", "exposure": 2500, "gain": 50, "laser_power": 200, "enable_ttl": true}
+2026-02-24 18:41:13,164 | INFO | pytracker.camera | Recording to file: C:\Users\gjb326\PROJECTS\PyTracker\data\2026_02_24-18_41_12\0.avi
+2026-02-24 18:41:22,581 | INFO | pytracker.camera | Recording stopped.
+2026-02-24 18:41:22,589 | INFO | pytracker.camera | Recording session ended path=C:\Users\gjb326\PROJECTS\PyTracker\data\2026_02_24-18_41_12 total_frames=284 elapsed_s=9.82
+2026-02-24 18:42:17,841 | INFO | pytracker.camera | Recording session ended path=C:\Users\gjb326\PROJECTS\PyTracker\data\2026_02_24-18_41_12 total_frames=284 elapsed_s=65.07
+2026-02-24 18:42:18,812 | INFO | pytracker.camera | RealSense pipeline stopped
+2026-02-24 18:42:18,851 | INFO | pytracker.launch | Recording GUI exited with code=0
+2026-02-24 18:42:27,602 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:42:30,194 | ERROR | pytracker.launch | Fatal error while launching tracking GUI
+Traceback (most recent call last):
+  File "C:\Users\gjb326\PROJECTS\PyTracker\run_recording_tracking.py", line 41, in <module>
+    selected_camera = select_camera(
+        preselected_id=recording_params.get('serial_number'),
+    ...<3 lines>...
+        fps=recording_params.get('fps', 30),
+    )
+  File "C:\Users\gjb326\PROJECTS\PyTracker\runtime_camera.py", line 265, in select_camera
+    raise RuntimeError(
+        f"Requested camera id {preselected_id} was not found among connected cameras."
+    )
+RuntimeError: Requested camera id 213622074070 was not found among connected cameras.
+2026-02-24 18:42:42,662 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:42:45,090 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:42:45,090 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:42:45,091 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:42:46,919 | INFO | pytracker.camera_select | Selected camera: [realsense] Intel RealSense D435 (213322072619)
+2026-02-24 18:42:46,920 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:42:47,268 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:42:47,933 | INFO | pytracker.launch | Launching tracking GUI with serial=213322072619
+2026-02-24 18:42:47,977 | INFO | pytracker.camera | Initialized RealSenseCamera serial=213322072619 tracking=True fps=30 resolution=640x480
+2026-02-24 18:42:48,398 | INFO | pytracker.camera | RealSense pipeline started successfully
+2026-02-24 18:42:53,879 | INFO | pytracker.camera | Reference computed successfully with 30 frames
+2026-02-24 18:42:53,883 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:53,891 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:53,900 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:53,930 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:53,963 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:53,997 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,031 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,063 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,097 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,131 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,164 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,197 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,231 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,264 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,297 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,330 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,364 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,397 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,431 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,465 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,498 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,530 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,564 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,597 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,631 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,664 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,697 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,730 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,765 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,797 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,831 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,864 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,897 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,930 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,964 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:54,997 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,030 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,064 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,098 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,131 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,165 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,197 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,231 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,264 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,330 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,364 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,397 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:42:55,430 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:01,665 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:01,865 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:01,899 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:01,965 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:01,999 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:02,166 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:02,199 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:02,265 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:02,299 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:02,832 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:02,899 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:02,932 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:02,966 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:03,032 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:03,232 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:03,265 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:03,333 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:03,366 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:03,966 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:04,666 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:04,699 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,233 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,267 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,333 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,401 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,433 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,500 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,666 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,700 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,733 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:05,767 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:14,278 | INFO | pytracker.camera | Reference computed successfully with 30 frames
+2026-02-24 18:43:18,947 | INFO | pytracker.camera | Reference computed successfully with 30 frames
+2026-02-24 18:43:18,954 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:18,963 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:18,973 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,004 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,038 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,070 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,103 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,137 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,237 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,270 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,337 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,370 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,403 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,537 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,570 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:19,604 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:24,671 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:24,938 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:24,971 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,005 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,038 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,072 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,105 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,138 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,171 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,205 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,238 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,272 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,304 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,338 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,372 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,405 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,438 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,472 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,506 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,538 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,571 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,605 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,639 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,671 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,705 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,739 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,772 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,805 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,838 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,872 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,905 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,938 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:25,972 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,006 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,039 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,072 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,105 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,139 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,171 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,205 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,238 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,272 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,305 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,338 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,372 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,405 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,439 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,472 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,506 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,539 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,572 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,605 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,639 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,672 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,705 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,739 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,773 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,806 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,839 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,872 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,905 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,939 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:26,973 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,006 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,039 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,073 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,105 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,139 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,173 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,206 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,239 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,273 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,306 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,339 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,373 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,406 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,439 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,472 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,506 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,539 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,572 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,605 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,639 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,673 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,706 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,739 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,773 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,806 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,839 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,873 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,906 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,939 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:27,972 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,006 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,039 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,073 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,105 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,140 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,172 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,206 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,239 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,273 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,306 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,339 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,373 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,406 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,439 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,473 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,506 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,540 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,572 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,606 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,640 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,673 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,706 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,740 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,773 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,806 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,839 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,873 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,906 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,940 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:28,972 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,006 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,039 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,073 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,106 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,139 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,172 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,206 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,239 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,273 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,305 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,339 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,373 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,406 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,439 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,473 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,506 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,539 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,572 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,607 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,640 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,673 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,706 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,740 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,773 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,806 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,840 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,873 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,906 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,940 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:29,972 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,006 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,040 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,073 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,107 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,140 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,173 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,206 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,240 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,273 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,306 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,340 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,373 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,407 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,439 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,473 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,506 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,539 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,573 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,607 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,639 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,673 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,706 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,740 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,773 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,807 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,840 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,873 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,907 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,939 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:30,974 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,006 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,039 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,073 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,106 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,140 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,173 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,206 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,240 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,273 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,306 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,340 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,373 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,407 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,439 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,474 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,506 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,540 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,573 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,607 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,639 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,674 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,706 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,740 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,773 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,807 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,840 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,873 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,907 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,940 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:31,973 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,007 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,086 | INFO | pytracker.camera | Reference computed successfully with 30 frames
+2026-02-24 18:43:32,093 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,104 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,113 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,140 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,173 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,206 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,240 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,274 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,307 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,341 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,373 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,407 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,439 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,474 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,507 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,540 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,573 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,607 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,640 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,673 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,707 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,740 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,773 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,807 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,841 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,873 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,907 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,940 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:32,973 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,007 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,040 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,074 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,107 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,141 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,173 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,208 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,240 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,274 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,307 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:33,573 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,173 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,207 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,240 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,274 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,307 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,341 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,373 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,407 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,440 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,474 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,507 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,540 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,574 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:35,607 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:37,674 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:37,707 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:37,741 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:38,441 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:38,475 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:38,508 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:38,541 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:38,575 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:38,608 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:38,641 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:39,642 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:39,675 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:39,808 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:39,842 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:39,875 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:39,909 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:39,943 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:39,975 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,008 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,042 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,076 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,108 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,141 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,174 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,208 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,241 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,275 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,308 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,342 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,375 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,409 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,442 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,476 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,508 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,541 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,575 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,609 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,642 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,675 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,708 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,741 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,776 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,809 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,842 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,875 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,909 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,942 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:40,975 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,009 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,042 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,075 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,108 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,142 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,175 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,208 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,242 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,275 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,309 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,342 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,375 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,509 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,542 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,575 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,609 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,909 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,943 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:41,975 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:42,009 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:42,042 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:42,076 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:42,109 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:42,142 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,276 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,310 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,475 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,575 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,609 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,642 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,676 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,709 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:43,976 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,009 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,043 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,076 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,109 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,143 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,176 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,209 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,243 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,276 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,309 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,343 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,376 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,410 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,443 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,476 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,510 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,543 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,576 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,609 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,643 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,676 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,710 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,743 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,777 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,810 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,843 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,877 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,910 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,943 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:44,976 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,010 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,043 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,077 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,110 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,144 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,177 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,209 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,243 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,276 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,310 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,343 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,376 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,411 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,443 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,477 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,510 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,543 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,576 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,610 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,643 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,676 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,709 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,743 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,777 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,810 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,843 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,877 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,910 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,944 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:45,976 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,011 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,043 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,076 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,110 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,143 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,177 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,210 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,243 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,277 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,310 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,343 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,377 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,410 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,444 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,477 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,510 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,543 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,576 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,610 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,644 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,677 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,710 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,743 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,778 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,810 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,843 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,877 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,910 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,944 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:46,977 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,010 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,043 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,077 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,110 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,144 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,177 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,210 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,243 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,277 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,310 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,344 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,377 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,411 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,443 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,477 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,511 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,544 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,577 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,610 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,644 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,676 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,710 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,744 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,778 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,811 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,844 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,877 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,911 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,944 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:47,977 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,010 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,044 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,077 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,110 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,144 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,178 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,210 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,287 | INFO | pytracker.camera | Reference computed successfully with 30 frames
+2026-02-24 18:43:48,294 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,303 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,311 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,344 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,377 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,411 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,444 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,477 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,510 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,544 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,610 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,645 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,677 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,710 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,744 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:43:48,778 | WARNING | pytracker.camera | ksize too large for morphology at frame=0; using unfiltered diff
+2026-02-24 18:44:11,153 | INFO | pytracker.camera | RealSense pipeline stopped
+2026-02-24 18:44:11,174 | INFO | pytracker.launch | Tracking GUI exited with code=0
+2026-02-24 18:47:51,085 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:47:53,491 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:47:53,492 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:47:53,492 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:47:57,344 | INFO | pytracker.camera_select | Selected camera: [usb] USB Camera 1 (1)
+2026-02-24 18:47:57,345 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:47:59,241 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:47:59,920 | INFO | pytracker.launch | Camera preview ended
+2026-02-24 18:48:05,080 | INFO | pytracker | Logging initialized. log_dir=C:\Users\gjb326\PROJECTS\PyTracker\pytracker_logs
+2026-02-24 18:48:07,467 | INFO | pytracker.camera_select | Connected cameras:
+2026-02-24 18:48:07,467 | INFO | pytracker.camera_select |   [1] [realsense] Intel RealSense D435 (213322072619) - D400
+2026-02-24 18:48:07,467 | INFO | pytracker.camera_select |   [2] [usb] USB Camera 1 (1)
+2026-02-24 18:48:08,509 | INFO | pytracker.camera_select | Selected camera: [usb] USB Camera 1 (1)
+2026-02-24 18:48:08,510 | INFO | pytracker.camera_select | Starting preview. Press 'q' or ESC to close preview and continue.
+2026-02-24 18:48:10,383 | WARNING | pytracker.camera_select | OpenCV preview is unavailable in this environment (HighGUI is not built/enabled). Skipping preview and continuing. Details: OpenCV(4.12.0) D:\a\opencv-python\opencv-python\opencv\modules\highgui\src\window.cpp:1284: error: (-2:Unspecified error) The function is not implemented. Rebuild the library with Windows, GTK+ 2.x or Cocoa support. If you are on Ubuntu or Debian, install libgtk2.0-dev and pkg-config, then re-run cmake or configure script in function 'cvNamedWindow'
+
+2026-02-24 18:48:11,054 | WARNING | pytracker.launch | Selected camera is USB. Recording GUI currently supports RealSense only, so only preview was run.
