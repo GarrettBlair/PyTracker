@@ -56,6 +56,7 @@ class RealSenseCamera(QThread):
             window_weight=0.90,
             loc_thresh=99.5,
             ksize=5,
+            **_unused_kwargs,
             ):
         '''
         Initialize RealSense camera, define recording
@@ -527,14 +528,21 @@ class RealSenseGUI(QMainWindow):
         self.stats_layout = QHBoxLayout()
         self.time_label = QLabel("Duration: 00:00:00")
         self.count_label = QLabel("Frames: 0")
+        self.fps_label = QLabel("FPS: --.-")
         stat_font = QFont("Arial", 14, QFont.Bold)
         self.time_label.setFont(stat_font)
         self.count_label.setFont(stat_font)
+        self.fps_label.setFont(stat_font)
         self.time_label.setStyleSheet("color: #2ecc71;")
         self.stats_layout.addWidget(self.time_label)
         self.stats_layout.addStretch()
+        self.stats_layout.addWidget(self.fps_label)
         self.stats_layout.addWidget(self.count_label)
         self.layout.addLayout(self.stats_layout)
+
+        self.fps_measure_start = time.perf_counter()
+        self.fps_measure_count = 0
+        self.smoothed_fps = None
 
         self.video_container = QHBoxLayout()
 
@@ -615,6 +623,19 @@ class RealSenseGUI(QMainWindow):
         bytes_per_line = width
         q_img = QImage(frame.data, width, height, bytes_per_line, QImage.Format_Grayscale8)
         self.video_label.setPixmap(QPixmap.fromImage(q_img))
+
+        self.fps_measure_count += 1
+        elapsed = time.perf_counter() - self.fps_measure_start
+        if elapsed >= 0.5:
+            instant_fps = self.fps_measure_count / elapsed
+            if self.smoothed_fps is None:
+                self.smoothed_fps = instant_fps
+            else:
+                self.smoothed_fps = (0.2 * self.smoothed_fps) + (0.8 * instant_fps)
+
+            self.fps_label.setText(f"FPS: {self.smoothed_fps:.1f}")
+            self.fps_measure_start = time.perf_counter()
+            self.fps_measure_count = 0
     
     @Slot(int, str)
     def update_stats(self, count, elapsed_time):

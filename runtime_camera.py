@@ -58,12 +58,20 @@ def list_realsense_cameras():
     return cameras
 
 
-def list_usb_cameras(max_index=10):
+def list_usb_cameras(preselected_index=None, max_index=10):
     """
     Return metadata for USB cameras discoverable by OpenCV.
     """
     cameras = []
-    for index in range(max_index):
+    
+    if preselected_index is not None:
+        start_idx = preselected_index
+        max_index = preselected_index + 1
+    else:
+        start_idx = 0
+    
+    for index in range(start_idx, max_index):
+        print(f"Checking for USB camera at index {index}...")
         cap = cv2.VideoCapture(index, cv2.CAP_DSHOW)
         if not cap.isOpened():
             cap.release()
@@ -107,141 +115,7 @@ def list_connected_cameras(max_usb_index=10):
     cameras.extend(list_usb_cameras(max_index=max_usb_index))
     return cameras
 
-
-def preview_realsense_camera(serial_number, width=640, height=480, fps=30, window_name=None):
-    """
-    Open a live preview for the selected RealSense camera until q or ESC is pressed.
-    """
-    if rs is None:
-        raise RuntimeError("pyrealsense2 is not installed, so RealSense preview is unavailable.")
-
-    pipeline = rs.pipeline()
-    config = rs.config()
-    config.enable_device(serial_number)
-    config.enable_stream(rs.stream.infrared, 1, width, height, rs.format.y8, fps)
-
-    if window_name is None:
-        window_name = f"RealSense Preview - {serial_number}"
-
-    pipeline_started = False
-    window_created = False
-    try:
-        pipeline.start(config)
-        pipeline_started = True
-
-        try:
-            cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-            window_created = True
-        except cv2.error as error:
-            if _is_highgui_not_available_error(error):
-                _warn_preview_unavailable(error)
-                return
-            raise
-
-        while True:
-            frames = pipeline.wait_for_frames()
-            ir_frame = frames.get_infrared_frame()
-            if not ir_frame:
-                continue
-
-            frame_np = np.asanyarray(ir_frame.get_data())
-            try:
-                cv2.imshow(window_name, frame_np)
-                key = cv2.waitKey(1) & 0xFF
-            except cv2.error as error:
-                if _is_highgui_not_available_error(error):
-                    _warn_preview_unavailable(error)
-                    return
-                raise
-            if key in (27, ord("q")):
-                break
-    finally:
-        if pipeline_started:
-            pipeline.stop()
-        if window_created:
-            cv2.destroyWindow(window_name)
-
-
-def preview_usb_camera(camera_index, width=640, height=480, fps=30, window_name=None):
-    """
-    Open a live preview for a USB camera until q or ESC is pressed.
-    """
-    if window_name is None:
-        window_name = f"USB Camera Preview - index {camera_index}"
-
-    cap = cv2.VideoCapture(camera_index, cv2.CAP_DSHOW)
-    if not cap.isOpened():
-        cap.release()
-        cap = cv2.VideoCapture(camera_index)
-
-    if not cap.isOpened():
-        raise RuntimeError(f"Could not open USB camera index {camera_index}.")
-
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-    cap.set(cv2.CAP_PROP_FPS, fps)
-
-    window_created = False
-
-    try:
-        try:
-            cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-            window_created = True
-        except cv2.error as error:
-            if _is_highgui_not_available_error(error):
-                _warn_preview_unavailable(error)
-                return
-            raise
-
-        while True:
-            ok, frame = cap.read()
-            if not ok:
-                continue
-
-            if frame.ndim == 3:
-                frame_show = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            else:
-                frame_show = frame
-
-            try:
-                cv2.imshow(window_name, frame_show)
-                key = cv2.waitKey(1) & 0xFF
-            except cv2.error as error:
-                if _is_highgui_not_available_error(error):
-                    _warn_preview_unavailable(error)
-                    return
-                raise
-            if key in (27, ord("q")):
-                break
-    finally:
-        cap.release()
-        if window_created:
-            cv2.destroyWindow(window_name)
-
-
-def preview_camera(camera_info, width=640, height=480, fps=30):
-    """
-    Preview any camera returned by list_connected_cameras.
-    """
-    if camera_info["camera_type"] == "realsense":
-        preview_realsense_camera(
-            serial_number=camera_info["serial_number"],
-            width=width,
-            height=height,
-            fps=fps,
-        )
-    elif camera_info["camera_type"] == "usb":
-        preview_usb_camera(
-            camera_index=camera_info["index"],
-            width=width,
-            height=height,
-            fps=fps,
-        )
-    else:
-        raise RuntimeError(f"Unsupported camera type: {camera_info['camera_type']}")
-
-
-def select_camera(preselected_id=None, preview=True, width=640, height=480, fps=30, max_usb_index=4):
+def select_camera(device_id=None, max_usb_index=3):
     """
     Select a connected camera at runtime and optionally preview it.
 
@@ -250,20 +124,26 @@ def select_camera(preselected_id=None, preview=True, width=640, height=480, fps=
     dict
         Selected camera metadata.
     """
-    cameras = list_connected_cameras(max_usb_index=max_usb_index)
+    if device_id is not None:
+        cameras = list_usb_cameras(preselected_index=device_id, max_index=device_id+3)
+    else:
+        cameras = list_connected_cameras(max_usb_index=max_usb_index)
+
     if len(cameras) == 0:
         raise RuntimeError("No cameras were detected (RealSense or USB).")
 
-    if preselected_id is not None:
+    selected_choice_idx = None
+
+    if device_id is not None:
         selected = None
-        preselected_id_str = str(preselected_id)
+        device_id_str = str(device_id)
         for camera in cameras:
-            if camera["id"] == preselected_id_str:
+            if camera["id"] == device_id_str:
                 selected = camera
                 break
         if selected is None:
             raise RuntimeError(
-                f"Requested camera id {preselected_id} was not found among connected cameras."
+                f"Requested camera id {device_id} was not found among connected cameras."
             )
     elif len(cameras) == 1:
         selected = cameras[0]
@@ -277,7 +157,7 @@ def select_camera(preselected_id=None, preview=True, width=640, height=480, fps=
     else:
         logger.info("Connected cameras:")
         print("Connected cameras:")
-        for idx, camera in enumerate(cameras, start=1):
+        for idx, camera in enumerate(cameras):
             extra = ""
             if camera["camera_type"] == "realsense" and camera.get("product_line"):
                 extra = f" - {camera['product_line']}"
@@ -292,43 +172,38 @@ def select_camera(preselected_id=None, preview=True, width=640, height=480, fps=
             print(f"  [{idx}] [{camera['camera_type']}] {camera['name']} ({camera['id']}){extra}")
 
         while True:
-            choice = input(f"Select camera [1-{len(cameras)}]: ").strip()
-            if choice.isdigit() and 1 <= int(choice) <= len(cameras):
-                selected = cameras[int(choice) - 1]
+            choice = input(f"Select camera [0-{len(cameras)-1}]: ").strip()
+            if choice.isdigit() and 0 <= int(choice) < len(cameras):
+                selected_choice_idx = int(choice)
+                selected = cameras[selected_choice_idx]
                 break
             logger.warning("Invalid selection. Please enter a valid number.")
             print("Invalid selection. Please enter a valid number.")
+
+    if selected.get("camera_type") == "usb" and "index" not in selected:
+        if selected_choice_idx is not None:
+            selected["index"] = selected_choice_idx
+        else:
+            selected["index"] = int(selected["id"])
 
     logger.info(
         "Selected camera: [%s] %s (%s)",
         selected['camera_type'],
         selected['name'],
-        selected['id'],
-    )
+        selected['id'])
     print(f"Selected camera: [{selected['camera_type']}] {selected['name']} ({selected['id']})")
-
-    if preview:
-        logger.info("Starting preview. Press 'q' or ESC to close preview and continue.")
-        print("Starting preview. Press 'q' or ESC to close preview and continue.")
-        preview_camera(selected, width=width, height=height, fps=fps)
 
     return selected
 
 
-def select_realsense_camera(
-    preselected_serial=None,
-    preview=True,
-    width=640,
-    height=480,
-    fps=30,
-):
+def select_realsense_camera(preselected_serial=None):
     """
     Select a connected RealSense camera at runtime and optionally preview it.
 
     Returns
     =======
-    str
-        The selected serial number.
+    dict
+        Selected RealSense camera metadata.
     """
     cameras = [cam for cam in list_connected_cameras() if cam["camera_type"] == "realsense"]
     if len(cameras) == 0:
@@ -348,15 +223,15 @@ def select_realsense_camera(
     else:
         logger.info("Connected RealSense cameras:")
         print("Connected RealSense cameras:")
-        for idx, camera in enumerate(cameras, start=1):
+        for idx, camera in enumerate(cameras):
             product_line = f" - {camera['product_line']}" if camera["product_line"] else ""
             logger.info("  [%s] %s (%s)%s", idx, camera['name'], camera['serial_number'], product_line)
             print(f"  [{idx}] {camera['name']} ({camera['serial_number']}){product_line}")
 
         while True:
-            choice = input(f"Select camera [1-{len(cameras)}]: ").strip()
-            if choice.isdigit() and 1 <= int(choice) <= len(cameras):
-                selected = cameras[int(choice) - 1]
+            choice = input(f"Select camera [0-{len(cameras)-1}]: ").strip()
+            if choice.isdigit() and 0 <= int(choice) < len(cameras):
+                selected = cameras[int(choice)]
                 break
             logger.warning("Invalid selection. Please enter a valid number.")
             print("Invalid selection. Please enter a valid number.")
@@ -365,14 +240,10 @@ def select_realsense_camera(
     logger.info("Selected camera: %s (%s)", selected['name'], selected_serial)
     print(f"Selected camera: {selected['name']} ({selected_serial})")
 
-    if preview:
-        logger.info("Starting preview. Press 'q' or ESC to close preview and continue.")
-        print("Starting preview. Press 'q' or ESC to close preview and continue.")
-        preview_realsense_camera(
-            serial_number=selected_serial,
-            width=width,
-            height=height,
-            fps=fps,
-        )
-
-    return selected_serial
+    return {
+        "camera_type": "realsense",
+        "name": selected["name"],
+        "id": selected_serial,
+        "serial_number": selected_serial,
+        "product_line": selected.get("product_line", ""),
+    }

@@ -2,7 +2,8 @@ import sys
 import logging
 from PySide6.QtWidgets import QApplication
 from gui import RealSenseGUI
-from runtime_camera import select_camera
+from gui_usb import USB_GUI
+from runtime_camera import select_camera, select_realsense_camera
 from logging_config import setup_app_logging, shutdown_app_logging
 
 recording_params = {
@@ -29,31 +30,28 @@ if __name__ == "__main__":
     logger = logging.getLogger("pytracker.launch")
 
     try:
-        selected_camera = select_camera(
-            preselected_id=recording_params.get('serial_number'),
-            preview=True,
-            width=recording_params.get('width', 640),
-            height=recording_params.get('height', 480),
-            fps=recording_params.get('fps', 30),
-        )
-
-        if selected_camera['camera_type'] != 'realsense':
-            logger.warning(
-                "Selected camera is USB. Recording GUI currently supports RealSense only, so only preview was run."
-            )
-            print(
-                "Selected camera is USB. Recording GUI currently supports RealSense only, "
-                "so only preview was run."
-            )
-            sys.exit(0)
-
-        recording_params['serial_number'] = selected_camera['serial_number']
-        logger.info("Launching recording GUI with serial=%s", recording_params['serial_number'])
-
+        if recording_params.get('serial_number') is not None:
+            logger.info("Preselected camera serial number: %s", recording_params['serial_number'])
+            selected_camera = select_realsense_camera(preselected_serial=recording_params['serial_number'])
+        else:
+            logger.info("No preselected camera. Will prompt user to select from detected cameras.")
+            selected_camera = select_camera(max_usb_index=recording_params.get('max_devices', 5))
+        
         app = QApplication.instance()
         if app is None:
             app = QApplication(sys.argv)
-        gui = RealSenseGUI(**recording_params)
+        
+        if selected_camera['camera_type'] == 'realsense':
+            recording_params['serial_number'] = selected_camera['serial_number']
+            logger.info("Launching recording GUI with RealSense serial=%s", recording_params['serial_number'])
+            gui = RealSenseGUI(**recording_params)
+        else:
+            recording_params['camera_index'] = selected_camera['index']
+            recording_params['exposure'] = None
+            recording_params['laser_power'] = None
+            recording_params['enable_ttl'] = False
+            logger.info("Launching recording GUI with USB index=%s", recording_params['camera_index'])
+            gui = USB_GUI(**recording_params)
         gui.show()
         exit_code = app.exec()
         logger.info("Recording GUI exited with code=%s", exit_code)
