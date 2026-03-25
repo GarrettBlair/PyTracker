@@ -666,3 +666,81 @@ class RealSenseGUI(QMainWindow):
         '''
         self.camera.stop_camera()
         super().closeEvent(event)
+
+
+## Class to interface with DIO board and update state transition logic ##
+## ========================================== ##
+
+
+def update_state(
+		    self,
+		    in_zone
+		    ):
+		    
+	if self.state == 0: # not in zone
+		if self.in_zone:
+		    self.state = 1
+                 
+	    
+    elif self.state == 1: # in zone awaiting stimulus
+		if not self.in_zone:
+		    self.state = 0 # for brief entrances
+		        
+		#check time delay
+	    else:
+	        if delay >= delay_after_entry:
+		        self.state = 2
+		            self.entry_stimulus_time = current_time
+		            # set stimulus pin to ON
+		                ul.d_bit_out(
+				        board_num,
+				        pin_mapping['stimulus']['port'],
+				        stimulus_pin,
+				        pin_mapping['stimulus']['ON']
+				    )
+	        else:
+                continue
+	        
+		    
+	elif self.state == 2: # getting stimulus
+		    self.stimulus_time = current_time
+            
+            #start time delay		        
+		if self.stimulus_time >= stimulus_length:
+		    self.state = 3
+		
+        # set stimulus pin to OFF
+            ul.d_bit_out(
+		        board_num,
+		        pin_mapping['stimulus']['port'],
+		        stimulus_pin,
+		        pin_mapping['stimulus']['OFF']
+		    )
+		else:
+            continue
+		    
+	elif self.state == 3: # post stimulus delay
+		    if not self.in_zone:
+		        self.state = 4
+		# check time delay
+	        elif time delay >= stimulus_ISI:
+		    self.state = 2 # stimulus again
+		            # set stimulus pin to ON
+		                ul.d_bit_out(
+				        board_num,
+				        pin_mapping['stimulus']['port'],
+				        stimulus_pin,
+				        pin_mapping['stimulus']['ON']
+				    )
+		    else:
+		        continue
+		    
+	elif self.state == 4: # in refractory period after leaving
+		    if self.in_zone:
+		        self.state == 3 # if subject has quickly left and come back into zone
+		    else:
+		    # check time delay
+		        if time_delay >= refractory period:
+		            self.state == 0 # reset
+		        else:
+		            continue
