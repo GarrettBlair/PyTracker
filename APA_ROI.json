@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "roi_rect": [
+        195,
+        91,
+        324,
+        277
+    ],
+    "target_zone": {
+        "type": "arc",
+        "min_radius_pct": 0.0,
+        "max_radius_pct": 100.0,
+        "place_angle_deg": 270.0,
+        "angle_width_deg": 60.0
+    }
+}
