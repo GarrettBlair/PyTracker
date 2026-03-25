@@ -7,10 +7,7 @@ from datetime import datetime, timedelta
 import numpy as np
 import pandas as pd
 from scipy import ndimage
-try:
-    import pyrealsense2 as rs
-except ImportError:
-    rs = None
+import pyrealsense2 as rs
 
 from PySide6.QtCore import QThread, Signal, Qt, Slot, QTimer
 from PySide6.QtWidgets import (
@@ -22,7 +19,8 @@ from PySide6.QtWidgets import (
     QLabel,
     QHBoxLayout,
     QMessageBox,
-    QInputDialog
+    QInputDialog,
+    QFileDialog
     )
 from PySide6.QtGui import QImage, QPixmap, QFont
 
@@ -602,6 +600,10 @@ class RealSenseGUI(QMainWindow):
             self.polygon_btn.clicked.connect(self.on_set_polygon_clicked)
             self.clear_target_btn = QPushButton("Clear Target")
             self.clear_target_btn.clicked.connect(self.on_clear_target_clicked)
+            self.save_roi_target_btn = QPushButton("Save ROI/Target")
+            self.save_roi_target_btn.clicked.connect(self.on_save_roi_target_clicked)
+            self.load_roi_target_btn = QPushButton("Load ROI/Target")
+            self.load_roi_target_btn.clicked.connect(self.on_load_roi_target_clicked)
 
             self.btn_layout.addWidget(self.roi_btn)
             self.btn_layout.addWidget(self.clear_roi_btn)
@@ -609,6 +611,8 @@ class RealSenseGUI(QMainWindow):
             self.btn_layout.addWidget(self.circle_btn)
             self.btn_layout.addWidget(self.polygon_btn)
             self.btn_layout.addWidget(self.clear_target_btn)
+            self.btn_layout.addWidget(self.save_roi_target_btn)
+            self.btn_layout.addWidget(self.load_roi_target_btn)
         
         self.record_btn = QPushButton("Record")
         self.stop_btn = QPushButton("Stop Recording")
@@ -733,14 +737,14 @@ class RealSenseGUI(QMainWindow):
         if self.roi_rect is None:
             QMessageBox.warning(self, "ROI Required", "Set ROI first.")
             return
-
-        min_radius, ok = QInputDialog.getDouble(self, "Arc Target", "Minimum Radius [%]:", 20.0, 0.0, 100.0, 1)
+        # default values are the wedge we're used to using in APA
+        min_radius, ok = QInputDialog.getDouble(self, "Arc Target", "Minimum Radius [%]:", 0.0, 0.0, 100.0, 1)
         if not ok:
             return
-        max_radius, ok = QInputDialog.getDouble(self, "Arc Target", "Maximum Radius [%]:", 50.0, 0.0, 100.0, 1)
+        max_radius, ok = QInputDialog.getDouble(self, "Arc Target", "Maximum Radius [%]:", 100.0, 0.0, 100.0, 1)
         if not ok:
             return
-        place_angle, ok = QInputDialog.getDouble(self, "Arc Target", "Place Angle [deg]:", 0.0, -360.0, 360.0, 1)
+        place_angle, ok = QInputDialog.getDouble(self, "Arc Target", "Place Angle [deg]:", 270.0, -360.0, 360.0, 1)
         if not ok:
             return
         angle_width, ok = QInputDialog.getDouble(self, "Arc Target", "Angle Width [deg]:", 60.0, 0.1, 360.0, 1)
@@ -792,6 +796,110 @@ class RealSenseGUI(QMainWindow):
 
     def on_clear_target_clicked(self):
         self.target_zone = None
+        self.polygon_points = []
+        if self.interaction_mode == 'polygon':
+            self.interaction_mode = None
+
+    def on_save_roi_target_clicked(self):
+        '''
+        Save current ROI and target zone to a JSON file.
+        '''
+        if self.roi_rect is None:
+            QMessageBox.warning(self, "ROI Required", "Set ROI first before saving.")
+            return
+        
+        payload = self.build_roi_target_payload()
+        
+        file_path, ok = QFileDialog.getSaveFileName(
+            self,
+            "Save ROI and Target",
+            "",
+            "JSON Files (*.json)"
+        )
+        
+        if ok and file_path:
+            try:
+                with open(file_path, 'w') as f:
+                    json.dump(payload, f, indent=4)
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to save: {str(e)}")
+
+    def on_load_roi_target_clicked(self):
+        '''
+        Load ROI and target zone from a JSON file.
+        '''
+        file_path, ok = QFileDialog.getOpenFileName(
+            self,
+            "Load ROI and Target",
+            "",
+            "JSON Files (*.json)"
+        )
+        
+        if ok and file_path:
+            try:
+                with open(file_path, 'r') as f:
+                    payload = json.load(f)
+                
+                self.apply_roi_target_payload(payload)
+            except json.JSONDecodeError as e:
+                QMessageBox.critical(self, "Error", f"Invalid JSON file: {str(e)}")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to load: {str(e)}")
+
+    def build_roi_target_payload(self):
+        '''
+        Build a JSON-serializable payload of current ROI and target zone.
+        '''
+        payload = {
+            "version": 1,
+            "roi_rect": list(self.roi_rect) if self.roi_rect else None,
+            "target_zone": self.target_zone
+        }
+        return payload
+
+    def apply_roi_target_payload(self, payload):
+        '''
+        Apply a loaded ROI and target zone payload to the GUI and camera state.
+        '''
+        # Validate version
+        if payload.get("version") != 1:
+            raise ValueError("Unsupported payload version")
+        
+        # Load ROI
+        roi_rect = payload.get("roi_rect")
+        if roi_rect:
+            if not isinstance(roi_rect, list) or len(roi_rect) != 4:
+                raise ValueError("Invalid ROI rect format")
+            self.roi_rect = tuple(roi_rect)
+            self.camera.roi_rect = self.roi_rect
+        
+        # Load target zone
+        target_zone = payload.get("target_zone")
+        if target_zone:
+            target_type = target_zone.get("type")
+            
+            if target_type == "arc":
+                required_keys = {"type", "min_radius_pct", "max_radius_pct", "place_angle_deg", "angle_width_deg"}
+                if not required_keys.issubset(target_zone.keys()):
+                    raise ValueError("Arc target missing required fields")
+            elif target_type == "circle":
+                required_keys = {"type", "place_angle_deg", "place_radius_pct", "target_radius_pct"}
+                if not required_keys.issubset(target_zone.keys()):
+                    raise ValueError("Circle target missing required fields")
+            elif target_type == "polygon":
+                required_keys = {"type", "points"}
+                if not required_keys.issubset(target_zone.keys()):
+                    raise ValueError("Polygon target missing required fields")
+                points = target_zone.get("points", [])
+                if len(points) < 3:
+                    raise ValueError("Polygon must have at least 3 points")
+            else:
+                raise ValueError(f"Unknown target type: {target_type}")
+            
+            self.target_zone = target_zone
+            self.camera.target_zone = self.target_zone
+        
+        # Reset polygon interaction state
         self.polygon_points = []
         if self.interaction_mode == 'polygon':
             self.interaction_mode = None

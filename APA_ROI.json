@@ -6,6 +6,11 @@
         324,
         277
     ],
+    "roi_circ": {
+        "center_x": 259,
+        "center_y": 184,
+        "radius": 93
+    },
     "target_zone": {
         "type": "arc",
         "min_radius_pct": 0.0,
