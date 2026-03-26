@@ -8,6 +8,8 @@ import numpy as np
 import pandas as pd
 from scipy import ndimage
 import pyrealsense2 as rs
+from mcculw import ul
+from mcculw.enums import DigitalPortType, DigitalIODirection
 
 from PySide6.QtCore import QThread, Signal, Qt, Slot, QTimer
 from PySide6.QtWidgets import (
@@ -94,6 +96,7 @@ class RealSenseCamera(QThread):
         super().__init__()
         self.recording = False
         self.running = True
+
         
         # initialize state variables
         self.writer = None
@@ -670,77 +673,129 @@ class RealSenseGUI(QMainWindow):
 
 ## Class to interface with DIO board and update state transition logic ##
 ## ========================================== ##
+class DIO_Interface(): 
+    def __init__(
+            self,
+            board_num = 0,
+            state = 0,
+            arena_motor= '0',
+            elapsed_state_time = 0,
+            stimulus_amplitude='0',
+            stimulus_duration=500,
+            pre_stimulus_duration=500,
+            post_stimulus_duration=500,
+            leave_stimulus_duration=500,
+    ):
+        self.board_num = board_num
+        self.state = state
+        self.arena_motor = arena_motor
+        self.elapsed_state_time = elapsed_state_time
+        self.stimulus_amplitude = stimulus_amplitude
+        self.stimulus_duration = stimulus_duration
+        self.pre_stimulus_duration = pre_stimulus_duration
+        self.post_stimulus_duration = post_stimulus_duration
+        self.leave_stimulus_duration = leave_stimulus_duration
+        
+        ul.d_config_port(board_num,DigitalPortType.FIRSTPORTA, DigitalIODirection, IN) #pins 0-7
+        ul.d_config_port(board_num,DigitalPortType.FIRSTPORTB, DigitalIODirection, IN) #pins 8-15
+        ul.d_config_port(board_num,DigitalPortType.FIRSTPORTC, DigitalIODirection, IN) #pins 16-23
 
 
-def update_state(
-		    self,
-		    in_zone
-		    ):
-		    
-	if self.state == 0: # not in zone
-		if self.in_zone:
-		    self.state = 1
-                 
-	    
-    elif self.state == 1: # in zone awaiting stimulus
-		if not self.in_zone:
-		    self.state = 0 # for brief entrances
-		        
-		#check time delay
-	    else:
-	        if delay >= delay_after_entry:
-		        self.state = 2
-		            self.entry_stimulus_time = current_time
-		            # set stimulus pin to ON
-		                ul.d_bit_out(
-				        board_num,
-				        pin_mapping['stimulus']['port'],
-				        stimulus_pin,
-				        pin_mapping['stimulus']['ON']
-				    )
-	        else:
-                continue
-	        
-		    
-	elif self.state == 2: # getting stimulus
-		    self.stimulus_time = current_time
+        #pin mapping
+        pin_mapping = pd.read_csv('./pin_mapping.csv)')
+        self.arena_on_state = 
+        self.arena_off_state = 0
+        self.stimulus_on_state = 
+        self.stimulus_off_state = 0
+        self.arena_port = 
+        self.stimulus_port = 
+        self.arena_pins = 
+        self.stimulus_pins = 
+
+    def update_elapsed_state_time(self, update_elapsed_time):
+        self.elapsed_state_time = self.elapsed_state_time + update_elapsed_time         
+
+        #Add capacity to turn on arena and state switching prior to recording if desired
+
+        #Set the 3 ports (A,B,C) as IN or OUT ports\
+
+# ### Figure out what the ON/OFF package combination is
+# ul.d_bit_out(
+#                         self.board_num,
+#                         self.arena_port,
+#                         self.arena_pins,
+#                         self.arena_on_state
+#                     )  
+# ###
+
+#Add update_elaspse_state_time outside this class##
+
+    #update state function logic
+    def update_state(
+        self,
+        in_zone
+    ):
+                
+        if self.state == 0: # not in zone
+            if self.in_zone:
+                self.state = 1
+                self.elapsed_state_time = 0
+                     
             
-            #start time delay		        
-		if self.stimulus_time >= stimulus_length:
-		    self.state = 3
-		
-        # set stimulus pin to OFF
-            ul.d_bit_out(
-		        board_num,
-		        pin_mapping['stimulus']['port'],
-		        stimulus_pin,
-		        pin_mapping['stimulus']['OFF']
-		    )
-		else:
-            continue
-		    
-	elif self.state == 3: # post stimulus delay
-		    if not self.in_zone:
-		        self.state = 4
-		# check time delay
-	        elif time delay >= stimulus_ISI:
-		    self.state = 2 # stimulus again
-		            # set stimulus pin to ON
-		                ul.d_bit_out(
-				        board_num,
-				        pin_mapping['stimulus']['port'],
-				        stimulus_pin,
-				        pin_mapping['stimulus']['ON']
-				    )
-		    else:
-		        continue
-		    
-	elif self.state == 4: # in refractory period after leaving
-		    if self.in_zone:
-		        self.state == 3 # if subject has quickly left and come back into zone
-		    else:
-		    # check time delay
-		        if time_delay >= refractory period:
-		            self.state == 0 # reset
-		        else:
-		            continue
+        elif self.state == 1: # in zone awaiting stimulus
+            if not self.in_zone:
+                self.state = 0 # for brief entrances
+                    
+            #check time delay
+            else:
+                if self.elapsed_state_time >= self.pre_stimulation_duration:
+                    self.state = 2
+                    self.elapsed_state_time = 0
+                    # set stimulus pin to ON
+                    ul.d_bit_out(
+                        self.board_num,
+                        self.stimulus_port,
+                        self.stimulus_pins,
+                        self.stimulus_on_state
+                    )        
+                
+        elif self.state == 2: # getting stimulus
+            #start time delay               
+            if self.elapsed_state_time >= self.stimulus_duration:
+                self.state = 3
+                self.elapsed_state_time = 0
+            
+                # set stimulus pin to OFF
+                ul.d_bit_out(
+                    self.board_num,
+                    self.stimulus_port,
+                    self.stimulus_pins,
+                    self.stimulus_off_state
+                    )
+                
+        elif self.state == 3: # post stimulus delay
+            if not self.in_zone:
+                self.state = 4
+                self.elapsed_state_time = 0
+
+            # check time delay
+            elif self.elapsed_state_time >= self.post_stimulation_duration:
+                self.state = 2 # stimulus again
+                self.elapsed_state_time = 0
+                # set stimulus pin to ON
+                ul.d_bit_out(
+                    self.board_num,
+                    self.stimulus_port,
+                    self.stimulus_pins,
+                    self.stimulus_on_state
+                    ) 
+                
+        elif self.state == 4: # in refractory period after leaving
+            if self.in_zone:
+                self.state = 3
+                self.elapsed_state_time = 0 # subject returns into zone
+            else:
+                # check time delay
+                if self.elapsed_state_time >= self.leave_stimulus_duration:
+                    self.state = 0 # reset
+                    self.elapsed_state_time = 0
