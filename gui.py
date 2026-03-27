@@ -678,7 +678,15 @@ class DIO_Interface():
             self,
             board_num = 0,
             state = 0,
-            arena_motor= '0',
+            experiment_type = 'Shock', #either shock or feeder
+
+            arena_speed = '0',
+            arena_direction = 'CW',
+
+            shock_intensity = '0',
+
+            feeder_state = '0',
+
             elapsed_state_time = 0,
             stimulus_amplitude='0',
             stimulus_duration=500,
@@ -688,7 +696,29 @@ class DIO_Interface():
     ):
         self.board_num = board_num
         self.state = state
-        self.arena_motor = arena_motor
+
+        self.pin_mapping = pd.read_csv('./pin_mapping.csv') 
+        self.shock_mapping = pd.read_csv('./shock_mapping.csv') 
+        self.arena_mapping = pd.read_csv('./arena_mapping.csv')
+
+        self.arena_port = self.pin_mapping.loc[self.pin_mapping['Component'] == 'motor_dir', 'Port'].values[0]
+        self.arena_speed = arena_speed
+        self.arena_direction = arena_direction
+        self.arena_on_byte = ***
+        self.arena_off_byte = ***
+    
+
+        self.shock_port = self.pin_mapping.loc[self.pin_mapping['Component'] == 'shock', 'Port'].values[0]
+        self.shock_intensity = shock_intensity
+        self.feeder_state = feeder_state
+        self.feeder_port = self.pin_mapping.loc[self.pin_mapping['Component'] == 'feeder', 'Port'].values[0]
+        self.feeder_on_byte = ***
+        self.feeder_off_byte = ***
+
+        self.stimulus_off_byte= ***
+        self.shock_on_byte = ***
+        self.feeder_on_byte ***
+
         self.elapsed_state_time = elapsed_state_time
         self.stimulus_amplitude = stimulus_amplitude
         self.stimulus_duration = stimulus_duration
@@ -696,68 +726,65 @@ class DIO_Interface():
         self.post_stimulus_duration = post_stimulus_duration
         self.leave_stimulus_duration = leave_stimulus_duration
         
-        ul.d_config_port(board_num,DigitalPortType.FIRSTPORTA, DigitalIODirection, IN) #pins 0-7
-        ul.d_config_port(board_num,DigitalPortType.FIRSTPORTB, DigitalIODirection, IN) #pins 8-15
-        ul.d_config_port(board_num,DigitalPortType.FIRSTPORTC, DigitalIODirection, IN) #pins 16-23
+        ul.d_config_port(self.board_num, DigitalPortType.FIRSTPORTA, DigitalIODirection.OUT) # Pins 30-37 (General Out)
+        ul.d_config_port(self.board_num, DigitalPortType.FIRSTPORTB, DigitalIODirection.OUT) # Pins 3-10 (Motor)
+        ul.d_config_port(self.board_num, DigitalPortType.FIRSTPORTC, DigitalIODirection.OUT) # Pins 22-29 (Shock/Feeder/Sync)
+
+        self.arena_byte = self.arena_mapping.loc[self.arena_mapping['speed'] == self.arena_speed, 'byte'].values[0]
+        if self.arena_direction == 'CCW':
+            self.arena_byte += 1
+
+        self.shock_byte = self.shock_mapping.loc[self.shock_mapping['intensity'] == self.shock_intensity, 'byte'].values[0]
+
+        if experiment_type.lower() == 'shock':
+            self.stimulus_func = self.activate_shock
+        elif experiment_type.lower() == 'feeder':
+            self.stimulus_func = self.dispense_food
+        else:
+            raise Exception("Invalid experiment_type. Must be one of ['shock','feeder'].")
 
 
-        #pin mapping
-        pin_mapping = pd.read_csv('./pin_mapping.csv)')
-        self.arena_on_state = 
-        self.arena_off_state = 0
-        self.stimulus_on_state = 
-        self.stimulus_off_state = 0
-        self.arena_port = 
-        self.stimulus_port = 
-        self.arena_pins = 
-        self.stimulus_pins = 
+    def start_arena(self):
+        ul.d_out(self.board_num, self.arena_port, self.arena_byte)
+
+    def stop_arena(self):
+        ul.d_out(self.board_num, self.arena_port, self.arena_off_state)
+
+    def activate_shock(self):
+        ul.d_out(self.board_num, self.shock_port, self.shock_byte) 
+
+    def deactivate_stimulus(self):
+        ul.d_out(self.board_num, self.shock_port, self.stimulus_off_state)    
+
+    def dispense_food(self):
+        ul.d_out(self.board_num, self.feeder_port, self.feeder_byte)  
 
     def update_elapsed_state_time(self, update_elapsed_time):
         self.elapsed_state_time = self.elapsed_state_time + update_elapsed_time         
 
-        #Add capacity to turn on arena and state switching prior to recording if desired
 
-        #Set the 3 ports (A,B,C) as IN or OUT ports\
-
-# ### Figure out what the ON/OFF package combination is
-# ul.d_bit_out(
-#                         self.board_num,
-#                         self.arena_port,
-#                         self.arena_pins,
-#                         self.arena_on_state
-#                     )  
-# ###
-
-#Add update_elaspse_state_time outside this class##
-
-    #update state function logic
     def update_state(
         self,
         in_zone
     ):
                 
         if self.state == 0: # not in zone
-            if self.in_zone:
+            if in_zone:
                 self.state = 1
                 self.elapsed_state_time = 0
                      
             
         elif self.state == 1: # in zone awaiting stimulus
-            if not self.in_zone:
+            if not in_zone:
                 self.state = 0 # for brief entrances
                     
             #check time delay
             else:
-                if self.elapsed_state_time >= self.pre_stimulation_duration:
+                if self.elapsed_state_time >= self.pre_stimulus_duration:
                     self.state = 2
                     self.elapsed_state_time = 0
                     # set stimulus pin to ON
-                    ul.d_bit_out(
-                        self.board_num,
-                        self.stimulus_port,
-                        self.stimulus_pins,
-                        self.stimulus_on_state
-                    )        
+                    self.stimulus_func()     
                 
         elif self.state == 2: # getting stimulus
             #start time delay               
@@ -766,32 +793,22 @@ class DIO_Interface():
                 self.elapsed_state_time = 0
             
                 # set stimulus pin to OFF
-                ul.d_bit_out(
-                    self.board_num,
-                    self.stimulus_port,
-                    self.stimulus_pins,
-                    self.stimulus_off_state
-                    )
+                self.deactivate_stimulus()
                 
         elif self.state == 3: # post stimulus delay
-            if not self.in_zone:
+            if not in_zone:
                 self.state = 4
                 self.elapsed_state_time = 0
 
             # check time delay
-            elif self.elapsed_state_time >= self.post_stimulation_duration:
+            elif self.elapsed_state_time >= self.post_stimulus_duration:
                 self.state = 2 # stimulus again
                 self.elapsed_state_time = 0
                 # set stimulus pin to ON
-                ul.d_bit_out(
-                    self.board_num,
-                    self.stimulus_port,
-                    self.stimulus_pins,
-                    self.stimulus_on_state
-                    ) 
+                self.stimulus_func()
                 
         elif self.state == 4: # in refractory period after leaving
-            if self.in_zone:
+            if in_zone:
                 self.state = 3
                 self.elapsed_state_time = 0 # subject returns into zone
             else:
